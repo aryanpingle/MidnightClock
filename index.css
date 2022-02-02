@@ -1,0 +1,76 @@
+:root {
+    font-family: 'Courier New', Courier, monospace;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+html, body {
+    height: 100vh;
+    height: fill-available;
+    height: -moz-fill-available;
+    height: -webkit-fill-available;
+}
+
+body {
+    background-color: #121212;
+    color: white;
+    margin: 0;
+    position: relative;
+}
+
+#page {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Actual Stuff */
+
+#time {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-size: 2.5em;
+}
+
+#time > span {
+    font-size: 2em;
+    font-weight: 800;
+}
+
+svg {
+    width: 80vmin;
+    aspect-ratio: 1 / 1;
+    shape-rendering: geometricPrecision;
+}
+
+#countdown-path {
+    --path-length: 3600;
+    --time-elapsed: 0;
+    stroke-dasharray: var(--path-length) var(--path-length);
+    background-blend-mode: difference;
+    stroke-dashoffset: calc(0 - var(--time-elapsed));
+}
+
+.thin-path {
+    shape-rendering: geometricPrecision;
+    stroke: rgba(255, 255, 255, 0.125);
+}

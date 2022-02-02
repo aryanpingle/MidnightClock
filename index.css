@@ -94,7 +94,7 @@ svg {
 .countdown__track {
     stroke: rgba(255, 255, 255, 0.1);
     stroke: var(--accent);
-    stroke-width: 60;
+    stroke-width: 75;
     --half-empty-space: calc(86400 / var(--divisions) / 20);
     --filled-space: calc(86400 / var(--divisions) - 2 * var(--half-empty-space));
     /* For uniform half sized empty spaces on either side, we do: 0 fill, half empty, filled space, half empty */
@@ -105,5 +105,5 @@ svg {
     stroke-dasharray: var(--path-length) var(--path-length);
     stroke-dashoffset: calc(var(--path-length) - var(--time-elapsed));
     stroke: #121212;
-    stroke-width: 62;
+    stroke-width: 80;
 }

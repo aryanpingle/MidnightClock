@@ -7,7 +7,7 @@ const min = (iterable, key = e=>e) => iterable.reduce((acc, val) => key(val) <= 
 const create_html = (html_string) => new DOMParser().parseFromString(html_string, "text/html").body.firstElementChild
 
 let path_element = null
-const countdown_arc_width = 75
+const countdown_arc_width = 100
 
 function setup() {
     document.querySelectorAll(".countdown-element").forEach((countdown_element, index) => {

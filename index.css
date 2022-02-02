@@ -27,6 +27,12 @@ body {
     position: relative;
 }
 
+@media (min-width: 720px) {
+    body {
+        height: 100vh;
+    }
+}
+
 #page {
     position: absolute;
     top: 0;

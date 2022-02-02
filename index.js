@@ -46,6 +46,16 @@ function tick() {
     let hours_left = 24 - date.getHours() - 1
     let minutes_left = 60 - date.getMinutes() - 1
     let seconds_left = 60 - date.getSeconds()
+
+    if (seconds_left == 60) {
+        seconds_left = 0
+        ++minutes_left
+    }
+    if(minutes_left == 60) {
+        minutes_left = 0
+        ++hours_left
+    }
+
     document.getElementById("time-as-text").innerHTML = `<span>${(hours_left < 10 ? "0" : "") + hours_left}</span>:<span>${(minutes_left < 10 ? "0" : "") + minutes_left}</span>:<span>${(seconds_left < 10 ? "0" : "") + seconds_left}</span>`
 }
 

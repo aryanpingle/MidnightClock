@@ -38,7 +38,7 @@ body {
 
 /* Actual Stuff */
 
-#time {
+#time-as-text {
     position: absolute;
     top: 0;
     left: 0;
@@ -47,12 +47,13 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    text-shadow: 0 0 1px black;
 
     font-size: 2.5em;
 }
 
-#time > span {
-    font-size: 2em;
+#time-as-text > span {
+    font-size: 1.5em;
     font-weight: 800;
 }
 
@@ -60,17 +61,33 @@ svg {
     width: 80vmin;
     aspect-ratio: 1 / 1;
     shape-rendering: geometricPrecision;
+    /* background-color: antiquewhite; */
 }
 
-#countdown-path {
-    --path-length: 3600;
-    --time-elapsed: 0;
+.countdown-element {
+    --path-length: 0;
+    --accent: deepskyblue;
+}
+
+#hours-left-group {--accent: hsl(0, 100%, 75%);}
+#minutes-left-group {--accent: hsl(120, 100%, 75%);}
+#seconds-left-group {--accent: hsl(240, 100%, 75%);}
+
+.countdown-element > circle {
+    fill: none;
+    transform-origin: center;
+    transform: rotate(-90deg);
+}
+
+.countdown__track {
+    stroke: rgba(255, 255, 255, 0.1);
+    stroke-width: 10;
+}
+
+.countdown__arc {
     stroke-dasharray: var(--path-length) var(--path-length);
-    background-blend-mode: difference;
     stroke-dashoffset: calc(0 - var(--time-elapsed));
-}
-
-.thin-path {
-    shape-rendering: geometricPrecision;
-    stroke: rgba(255, 255, 255, 0.125);
+    stroke: var(--accent);
+    stroke-width: 76;
+    stroke-linecap: round;
 }

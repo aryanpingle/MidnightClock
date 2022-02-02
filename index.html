@@ -19,17 +19,20 @@
 </head>
 <body>
     <div id="page">
-        <div id="time"></div>
+        <div id="time-as-text"></div>
         <svg viewbox="0 0 1000 1000" xmlns="http://www.w3.org/2000/svg">
-            <!-- (A rx ry angle large-arc-flag sweep-flag x y)+ -->
-            <g id="hours-left-group">
-                <path class="thin-path" d="M 500 100 A 400 400 0 1 1 499 100 Z" stroke-width="50" fill="none" pathLength="3600" />
-                <path id="countdown-path" d="M 500 100 A 400 400 0 1 1 499 100 Z" shape-rendering="geometricPrecision" stroke="deepskyblue" stroke-width="100" fill="none" pathLength="3600" />
+            <g class="countdown-element" id="hours-left-group" pathLength="86400">
+                <circle cx="50%" cy="50%" class="countdown__track"></circle>
+                <circle cx="50%" cy="50%" class="countdown__arc"></circle>
             </g>
-            <!-- <g id="minutes-left-group">
-                <path class="thin-path" d="M 500 100 A 400 400 0 1 1 499 100 Z" stroke-width="50" fill="none" pathLength="3600" />
-                <path id="countdown-path" d="M 500 100 A 400 400 0 1 1 499 100 Z" shape-rendering="geometricPrecision" stroke="deepskyblue" stroke-width="100" fill="none" pathLength="3600" />
-            </g> -->
+            <g class="countdown-element" id="minutes-left-group" pathLength="3600">
+                <circle cx="50%" cy="50%" class="countdown__track"></circle>
+                <circle cx="50%" cy="50%" class="countdown__arc"></circle>
+            </g>
+            <g class="countdown-element" id="seconds-left-group" pathLength="60">
+                <circle cx="50%" cy="50%" class="countdown__track"></circle>
+                <circle cx="50%" cy="50%" class="countdown__arc"></circle>
+            </g>
         </svg>
     </div>
 </body>

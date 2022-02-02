@@ -88,7 +88,7 @@
 		}
 	],
     "start_url": "/index.html",
-    "background_color": "#121212",
+    "background_color": "#000000",
     "display": "standalone",
-    "theme_color": "#121212"
+    "theme_color": "#000000"
 }

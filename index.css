@@ -65,7 +65,8 @@ svg {
 }
 
 .countdown-element {
-    --path-length: 0;
+    --path-length: 86400;
+    --time-elapsed: 0;
     shape-rendering: geometricPrecision;
     --accent: deepskyblue;
 }

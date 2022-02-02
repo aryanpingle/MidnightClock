@@ -47,5 +47,5 @@ function tick() {
 }
 
 setup()
-tick()
-setInterval(() => tick(), 1000)
+// tick()
+// setInterval(() => tick(), 1000)

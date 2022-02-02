@@ -34,10 +34,10 @@ function tick() {
     let seconds = date.getSeconds()
 
     // Set Seconds Left
-    document.querySelector("#seconds-left-group").style.setProperty("--time-elapsed", seconds)
+    document.querySelector("#seconds-left-group").style.setProperty("--time-elapsed", seconds * 1440)
 
     // Set Minutes Left
-    document.querySelector("#minutes-left-group").style.setProperty("--time-elapsed", seconds + minutes*60)
+    document.querySelector("#minutes-left-group").style.setProperty("--time-elapsed", (seconds + minutes*60) * 24)
 
     // Set Hours Left
     document.querySelector("#hours-left-group").style.setProperty("--time-elapsed", seconds + minutes*60 + hours*3600)

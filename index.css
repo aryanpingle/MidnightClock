@@ -58,20 +58,32 @@ body {
 }
 
 svg {
-    width: 80vmin;
+    width: 90vmin;
     aspect-ratio: 1 / 1;
-    shape-rendering: geometricPrecision;
+    shape-rendering: crispEdges;
     /* background-color: antiquewhite; */
 }
 
 .countdown-element {
     --path-length: 0;
+    shape-rendering: geometricPrecision;
     --accent: deepskyblue;
 }
 
-#hours-left-group {--accent: hsl(0, 100%, 75%);}
-#minutes-left-group {--accent: hsl(120, 100%, 75%);}
-#seconds-left-group {--accent: hsl(240, 100%, 75%);}
+#hours-left-group {
+    --accent: hsl(0, 100%, 75%);
+    --divisions: 24;
+}
+
+#minutes-left-group {
+    --accent: hsl(120, 100%, 75%);
+    --divisions: 60;
+}
+
+#seconds-left-group {
+    --accent: hsl(240, 100%, 75%);
+    --divisions: 60;
+}
 
 .countdown-element > circle {
     fill: none;
@@ -81,13 +93,17 @@ svg {
 
 .countdown__track {
     stroke: rgba(255, 255, 255, 0.1);
-    stroke-width: 10;
+    stroke: var(--accent);
+    stroke-width: 60;
+    --half-empty-space: calc(86400 / var(--divisions) / 20);
+    --filled-space: calc(86400 / var(--divisions) - 2 * var(--half-empty-space));
+    /* For uniform half sized empty spaces on either side, we do: 0 fill, half empty, filled space, half empty */
+    stroke-dasharray: 0 var(--half-empty-space) var(--filled-space) var(--half-empty-space);
 }
 
 .countdown__arc {
     stroke-dasharray: var(--path-length) var(--path-length);
-    stroke-dashoffset: calc(0 - var(--time-elapsed));
-    stroke: var(--accent);
-    stroke-width: 76;
-    stroke-linecap: round;
+    stroke-dashoffset: calc(var(--path-length) - var(--time-elapsed));
+    stroke: #121212;
+    stroke-width: 62;
 }

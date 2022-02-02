@@ -43,7 +43,10 @@ function tick() {
     document.querySelector("#hours-left-group").style.setProperty("--time-elapsed", seconds + minutes*60 + hours*3600)
 
     // Text - Time Left
-    document.getElementById("time-as-text").innerHTML = `<span>${24 - date.getHours() - 1}</span>:<span>${60 - date.getMinutes() - 1}</span>:<span>${(60 - date.getSeconds())}</span>`
+    let hours_left = 24 - date.getHours() - 1
+    let minutes_left = 60 - date.getMinutes() - 1
+    let seconds_left = 60 - date.getSeconds()
+    document.getElementById("time-as-text").innerHTML = `<span>${(hours_left < 10 ? "0" : "") + hours_left}</span>:<span>${(minutes_left < 10 ? "0" : "") + minutes_left}</span>:<span>${(seconds_left < 10 ? "0" : "") + seconds_left}</span>`
 }
 
 setup()

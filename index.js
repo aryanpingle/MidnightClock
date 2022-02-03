@@ -6,10 +6,16 @@ const max = (iterable, key = e=>e) => iterable.reduce((acc, val) => key(val) >= 
 const min = (iterable, key = e=>e) => iterable.reduce((acc, val) => key(val) <= key(acc) ? val : acc, iterable[0])
 const create_html = (html_string) => new DOMParser().parseFromString(html_string, "text/html").body.firstElementChild
 
-let path_element = null
 const countdown_arc_width = 120
 
+let seconds_left_group = null
+let minutes_left_group = null
+let hours_left_group = null
+
 function setup() {
+    seconds_left_group = document.querySelector("#seconds-left-group")
+    minutes_left_group = document.querySelector("#minutes-left-group")
+    hours_left_group = document.querySelector("#hours-left-group")
     document.querySelectorAll(".countdown-element").forEach((countdown_element, index) => {
         // Set path lengths
         countdown_element.style.setProperty("--path-length", countdown_element.getAttribute("pathLength"))
@@ -37,13 +43,13 @@ function tick() {
     let seconds = date.getSeconds()
 
     // Set Seconds Left
-    document.querySelector("#seconds-left-group").style.setProperty("--time-elapsed", seconds * 1440)
+    seconds_left_group.style.setProperty("--time-elapsed", seconds * 1440)
 
     // Set Minutes Left
-    document.querySelector("#minutes-left-group").style.setProperty("--time-elapsed", (seconds + minutes*60) * 24)
+    minutes_left_group.style.setProperty("--time-elapsed", (seconds + minutes*60) * 24)
 
     // Set Hours Left
-    document.querySelector("#hours-left-group").style.setProperty("--time-elapsed", seconds + minutes*60 + hours*3600)
+    hours_left_group.style.setProperty("--time-elapsed", seconds + minutes*60 + hours*3600)
 
     // Text - Time Left
     let hours_left = 24 - date.getHours() - 1
@@ -64,4 +70,4 @@ function tick() {
 
 setup()
 tick()
-setInterval(() => tick(), 1000)
+setInterval(() => tick(), 500)

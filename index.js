@@ -7,7 +7,7 @@ const min = (iterable, key = e=>e) => iterable.reduce((acc, val) => key(val) <= 
 const create_html = (html_string) => new DOMParser().parseFromString(html_string, "text/html").body.firstElementChild
 
 let path_element = null
-const countdown_arc_width = 100
+const countdown_arc_width = 120
 
 function setup() {
     document.querySelectorAll(".countdown-element").forEach((countdown_element, index) => {
@@ -23,6 +23,9 @@ function setup() {
             // [i] = 1000 - width*(1+2i)/2
             circle.setAttribute("r", 500 - countdown_arc_width*(1 + 2*index)/2)
         })
+
+        // Set arc widths
+        countdown_element.style.setProperty("--stroke-width", countdown_arc_width)
     })
 }
 

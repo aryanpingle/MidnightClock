@@ -77,6 +77,7 @@ svg {
     --time-elapsed: 0;
     shape-rendering: geometricPrecision;
     --accent: deepskyblue;
+    --stroke-width: 50;
 }
 
 #hours-left-group {
@@ -104,7 +105,7 @@ svg {
 .countdown__track {
     stroke: rgba(255, 255, 255, 0.1);
     stroke: var(--accent);
-    stroke-width: 75;
+    stroke-width: calc(var(--stroke-width) / 1.25);
     --half-empty-space: calc(86400 / var(--divisions) / 20);
     --filled-space: calc(86400 / var(--divisions) - 2 * var(--half-empty-space));
     /* For uniform half sized empty spaces on either side, we do: 0 fill, half empty, filled space, half empty */
@@ -115,5 +116,30 @@ svg {
     stroke-dasharray: var(--path-length) var(--path-length);
     stroke-dashoffset: calc(var(--path-length) - var(--time-elapsed));
     stroke: #000000;
-    stroke-width: 80;
+    stroke-width: calc(var(--stroke-width));
+}
+
+@media (max-width: 1024px) {
+    #page {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+    }
+
+    #time-as-text {
+        position: relative;
+        height: 2%;
+        font-size: 4em;
+    }
+
+    svg {
+        width: 100%;
+        height: 50%;
+    }
+}
+
+@media (max-width: 640px) {
+    #time-as-text {
+        font-size: 2.5em;
+    }
 }

@@ -47,6 +47,8 @@ body {
 /* Actual Stuff */
 
 #time-as-text {
+    user-select: none;
+    pointer-events: none;
     position: absolute;
     top: 0;
     left: 0;

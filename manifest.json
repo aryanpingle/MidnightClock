@@ -1,6 +1,7 @@
 {
     "short_name": "Clock",
     "name": "Midnight Clock",
+	"description": "A visual clock that counts down to midnight",
     "icons": [
 		{
 			"src": "/images/logo72.png",

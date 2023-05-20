@@ -65,7 +65,22 @@ function tick() {
         ++hours_left
     }
 
-    document.getElementById("time-as-text").innerHTML = `<span>${(hours_left < 10 ? "0" : "") + hours_left}</span>:<span>${(minutes_left < 10 ? "0" : "") + minutes_left}</span>:<span>${(seconds_left < 10 ? "0" : "") + seconds_left}</span>`
+    document.getElementById("time-as-text").innerHTML = `
+    ${getTimeSubdivision(hours_left, "hours")}
+    ${getTimeSubdivision(minutes_left, "minutes")}
+    ${getTimeSubdivision(seconds_left, "seconds")}
+    `
+}
+
+function getTimeSubdivision(number, text) {
+    if(number == 0 && text !== "seconds") return ""
+
+    return `
+    <div class="time-subdivision" subdivision-type="${text}">
+        <div class="time-value">${(number < 10 ? "0" : "") + number}</div>
+        <div class="time-text">${text}</div>
+    </div>
+    `
 }
 
 setup()

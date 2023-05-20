@@ -1,0 +1,53 @@
+svg {
+    aspect-ratio: 1 / 1;
+    shape-rendering: crispEdges;
+}
+
+.countdown-element {
+    --path-length: 86400;
+    --time-elapsed: 0;
+    shape-rendering: geometricPrecision;
+    --accent: deepskyblue;
+    --stroke-width: 50;
+    
+    --accent: hsl(var(--hue), 100%, 75%);
+}
+
+#hours-left-group {
+    --hue: 0;
+    --divisions: 24;
+}
+
+#minutes-left-group {
+    --hue: 120;
+    --divisions: 60;
+}
+
+#seconds-left-group {
+    --hue: 240;
+    --divisions: 60;
+}
+
+.countdown-element > circle {
+    fill: none;
+    position: relative;
+    transform-origin: center;
+    transform: rotate(-90deg);
+}
+
+.countdown__track {
+    stroke: rgba(255, 255, 255, 0.1);
+    stroke: var(--accent);
+    stroke-width: calc(var(--stroke-width) / 1.25);
+    --half-empty-space: calc(86400 / var(--divisions) / 20);
+    --filled-space: calc(86400 / var(--divisions) - 2 * var(--half-empty-space));
+    /* For uniform half sized empty spaces on either side, we do: 0 fill, half empty, filled space, half empty */
+    stroke-dasharray: 0 var(--half-empty-space) var(--filled-space) var(--half-empty-space);
+}
+
+.countdown__arc {
+    stroke-dasharray: var(--path-length) var(--path-length);
+    stroke-dashoffset: calc(var(--path-length) - var(--time-elapsed));
+    stroke: #000000;
+    stroke-width: calc(var(--stroke-width));
+}

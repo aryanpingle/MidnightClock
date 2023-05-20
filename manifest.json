@@ -1,11 +1,11 @@
 {
     "short_name": "Clock",
     "name": "Midnight Clock",
+	"description": "A beautiful, minimalist clock that counts down to midnight",
     "start_url": "/",
     "display": "standalone",
     "background_color": "#000000",
     "theme_color": "#000000",
-	"description": "A visual clock that counts down to midnight",
     "icons": [
 		{
 			"src": "/images/logo72.png",
@@ -90,6 +90,22 @@
 			"type": "image/png",
 			"sizes": "720x720",
 			"purpose": "maskable"
+		}
+	],
+	"screenshots": [
+		{
+			"src": "/images/screenshots/SS 1.jpg",
+			"type": "image/jpeg",
+			"sizes": "541x1170",
+			"platform": "android",
+			"label": "Screenshot 1"
+		},
+		{
+			"src": "/images/screenshots/SS 2.jpg",
+			"type": "image/jpeg",
+			"sizes": "541x1170",
+			"platform": "android",
+			"label": "Screenshot 2"
 		}
 	]
 }

@@ -18,7 +18,7 @@ function setup() {
     hours_left_group = document.querySelector("#hours-left-group")
     document.querySelectorAll(".countdown-element").forEach((countdown_element, index) => {
         // Set path lengths
-        countdown_element.style.setProperty("--path-length", countdown_element.getAttribute("pathLength"))
+        countdown_element.style.setProperty("--path-length", "86401")
         countdown_element.querySelectorAll("circle").forEach(circle => {
             circle.setAttribute("pathLength", countdown_element.getAttribute("pathLength"))
             

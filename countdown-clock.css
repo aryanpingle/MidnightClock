@@ -1,10 +1,12 @@
 svg {
     aspect-ratio: 1 / 1;
     shape-rendering: crispEdges;
+    transform-origin: center;
+    transform: rotate(-90deg);
 }
 
 .countdown-element {
-    --path-length: 86400;
+    --path-length: 86401;
     --time-elapsed: 0;
     shape-rendering: geometricPrecision;
     --accent: deepskyblue;
@@ -31,8 +33,6 @@ svg {
 .countdown-element > circle {
     fill: none;
     position: relative;
-    transform-origin: center;
-    transform: rotate(-90deg);
 }
 
 .countdown__track {
@@ -41,7 +41,7 @@ svg {
     stroke-width: calc(var(--stroke-width) / 1.25);
     --half-empty-space: calc(86400 / var(--divisions) / 20);
     --filled-space: calc(86400 / var(--divisions) - 2 * var(--half-empty-space));
-    /* For uniform half sized empty spaces on either side, we do: 0 fill, half empty, filled space, half empty */
+    /* For uniform half sized empty spaces on either side, we do: <empty>, half empty, filled space, half empty */
     stroke-dasharray: 0 var(--half-empty-space) var(--filled-space) var(--half-empty-space);
 }
 

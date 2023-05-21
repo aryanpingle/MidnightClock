@@ -67,13 +67,13 @@ function tick() {
 
     document.getElementById("time-as-text").innerHTML = `
     ${getTimeSubdivision(hours_left, "hours")}
-    ${getTimeSubdivision(minutes_left, "minutes")}
-    ${getTimeSubdivision(seconds_left, "seconds")}
+    ${getTimeSubdivision(minutes_left, "minutes", hours_left)}
+    ${getTimeSubdivision(seconds_left, "seconds", hours_left || minutes_left)}
     `
 }
 
-function getTimeSubdivision(number, text) {
-    if(number == 0 && text !== "seconds") return ""
+function getTimeSubdivision(number, text, force_enable=false) {
+    if(!force_enable && number == 0 && text !== "seconds") return ""
 
     return `
     <div class="time-subdivision" subdivision-type="${text}">

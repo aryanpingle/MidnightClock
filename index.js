@@ -6,6 +6,16 @@ const max = (iterable, key = e=>e) => iterable.reduce((acc, val) => key(val) >= 
 const min = (iterable, key = e=>e) => iterable.reduce((acc, val) => key(val) <= key(acc) ? val : acc, iterable[0])
 const create_html = (html_string) => new DOMParser().parseFromString(html_string, "text/html").body.firstElementChild
 
+function getLS(id, def) {
+    let val = localStorage.getItem(id);
+    if(!val) return def;
+    return val;
+}
+
+function setLS(id, val) {
+    localStorage.setItem(id, val);
+}
+
 const countdown_arc_width = 120
 
 let seconds_left_group = null
@@ -92,6 +102,12 @@ function setup() {
         document.head.querySelector("meta[name='theme-color']").setAttribute("content", "#efefef");
     }
 
+    {
+        // Set target from LS (default = midnight)
+        let dateMask = getLS("TARGET_TIME", 0);
+        targetDateRepr = new DateRepresentation(dateMask, true);
+    }
+
     seconds_left_group = document.querySelector("#seconds-left-group")
     minutes_left_group = document.querySelector("#minutes-left-group")
     hours_left_group = document.querySelector("#hours-left-group")
@@ -118,6 +134,7 @@ function setup() {
         const hours = parseInt(targetTimeInput.value.substring(0, 2));
         const minutes = parseInt(targetTimeInput.value.substring(3, 5));
         targetDateRepr = new DateRepresentation(hours * 1_00_00 + minutes * 1_00, true);
+        setLS("TARGET_TIME", targetDateRepr.dateMask);
     }
     document.querySelector(".target-time-text").onclick = event => {
         targetTimeInput.showPicker();

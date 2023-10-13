@@ -3,6 +3,9 @@ svg {
     shape-rendering: crispEdges;
     transform-origin: center;
     transform: rotate(-90deg);
+
+    user-select: none;
+    pointer-events: none;
 }
 
 .countdown-element {

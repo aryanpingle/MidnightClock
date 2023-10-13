@@ -23,11 +23,6 @@ class DateRepresentation {
      */
     dateMask;
 
-    /**
-     * 1:31AM - 1:30AM = 000100
-     * 2:30AM - 1:40AM = 005000
-     */
-
     constructor(arg, isDateMask=0) {
         if(isDateMask) {
             this.constructorFromDateMask(arg);
@@ -72,8 +67,23 @@ class DateRepresentation {
     }
 
     toString() {
-        return `Date: ${this.dateMask}`;
+        return `${this.hoursOTD}:${this.minutesOTD}:${this.secondsOTD}`;
     }
+
+    isMidnight() {
+        return (this.dateMask == 240000) || (this.dateMask == 0);
+    }
+}
+
+/**
+ * @param {any} string 
+ * @param {number} length 
+ * @returns {string}
+ */
+function leftPadZero(string, length) {
+    string = string + "";
+    if(string.length >= length) return string;
+    return (new Array(length - string.length).fill("0")).join("") + string
 }
 
 function setup() {
@@ -102,7 +112,19 @@ function setup() {
         // Set arc widths
         countdown_element.style.setProperty("--stroke-width", countdown_arc_width)
     })
+
+    const targetTimeInput = document.querySelector(".target-time-input");
+    targetTimeInput.onchange = event => {
+        const hours = parseInt(targetTimeInput.value.substring(0, 2));
+        const minutes = parseInt(targetTimeInput.value.substring(3, 5));
+        targetDateRepr = new DateRepresentation(hours * 1_00_00 + minutes * 1_00, true);
+    }
+    document.querySelector(".target-time-text").onclick = event => {
+        targetTimeInput.showPicker();
+    };
 }
+
+let targetDateRepr = new DateRepresentation(0, true); // Midnight by default
 
 function tick() {
     const DIVISIONS = 86400;
@@ -112,9 +134,7 @@ function tick() {
     const arcUnitHours = parseInt(DIVISIONS / 60 / 60 / 24);
 
     const currentDateRepr = new DateRepresentation(new Date());
-    const targetDateRepr = new DateRepresentation(240000, true); // Midnight by default
     const elapsedDateRepr = DateRepresentation.getDifferenceDateRepresentation(currentDateRepr, targetDateRepr);
-    console.log(`${elapsedDateRepr}`);
 
     const elapsedSeconds = elapsedDateRepr.secondsOTD;
     const elapsedMinutes = elapsedDateRepr.minutesOTD;
@@ -139,6 +159,9 @@ function tick() {
     ${getTimeSubdivision(minutes_left, "minutes", hours_left)}
     ${getTimeSubdivision(seconds_left, "seconds", hours_left || minutes_left)}
     `
+
+    let targetTimeText = `${leftPadZero(targetDateRepr.hoursOTD, 2)}:${leftPadZero(targetDateRepr.minutesOTD, 2)}${targetDateRepr.hoursOTD < 12 ? "AM" : "PM"}`;
+    document.querySelector(".target-time-text").innerHTML = `till<br>` + (targetDateRepr.isMidnight() ? "midnight" :  targetTimeText);
 }
 
 function getTimeSubdivision(number, text, force_enable=false) {

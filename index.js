@@ -177,7 +177,9 @@ function tick() {
     ${getTimeSubdivision(seconds_left, "seconds", hours_left || minutes_left)}
     `
 
-    let targetTimeText = `${leftPadZero(targetDateRepr.hoursOTD, 2)}:${leftPadZero(targetDateRepr.minutesOTD, 2)}${targetDateRepr.hoursOTD < 12 ? "AM" : "PM"}`;
+    let hoursNumber = targetDateRepr.hoursOTD || 12;
+    hoursNumber = hoursNumber <= 12 ? hoursNumber : (hoursNumber - 12);
+    let targetTimeText = `${hoursNumber}:${leftPadZero(targetDateRepr.minutesOTD, 2)} ${targetDateRepr.hoursOTD < 12 ? "AM" : "PM"}`;
     document.querySelector(".target-time-text").innerHTML = `till<br>` + (targetDateRepr.isMidnight() ? "midnight" :  targetTimeText);
 }
 

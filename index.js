@@ -102,11 +102,22 @@ function setup() {
         document.head.querySelector("meta[name='theme-color']").setAttribute("content", "#efefef");
     }
 
+    const targetTimeInput = document.querySelector(".target-time-input");
     {
         // Set target from LS (default = midnight)
         let dateMask = getLS("TARGET_TIME", 0);
         targetDateRepr = new DateRepresentation(dateMask, true);
+        targetTimeInput.value = `${leftPadZero(targetDateRepr.hoursOTD, 2)}:${leftPadZero(targetDateRepr.minutesOTD, 2)}`;
     }
+    targetTimeInput.onchange = event => {
+        const hours = parseInt(targetTimeInput.value.substring(0, 2));
+        const minutes = parseInt(targetTimeInput.value.substring(3, 5));
+        targetDateRepr = new DateRepresentation(hours * 1_00_00 + minutes * 1_00, true);
+        setLS("TARGET_TIME", targetDateRepr.dateMask);
+    }
+    document.querySelector(".target-time-text").onclick = event => {
+        targetTimeInput.showPicker();
+    };
 
     seconds_left_group = document.querySelector("#seconds-left-group")
     minutes_left_group = document.querySelector("#minutes-left-group")
@@ -128,17 +139,6 @@ function setup() {
         // Set arc widths
         countdown_element.style.setProperty("--stroke-width", countdown_arc_width)
     })
-
-    const targetTimeInput = document.querySelector(".target-time-input");
-    targetTimeInput.onchange = event => {
-        const hours = parseInt(targetTimeInput.value.substring(0, 2));
-        const minutes = parseInt(targetTimeInput.value.substring(3, 5));
-        targetDateRepr = new DateRepresentation(hours * 1_00_00 + minutes * 1_00, true);
-        setLS("TARGET_TIME", targetDateRepr.dateMask);
-    }
-    document.querySelector(".target-time-text").onclick = event => {
-        targetTimeInput.showPicker();
-    };
 }
 
 let targetDateRepr = new DateRepresentation(0, true); // Midnight by default

@@ -13,6 +13,11 @@ let minutes_left_group = null
 let hours_left_group = null
 
 function setup() {
+    // Set theme
+    if(window.matchMedia("(prefers-color-scheme: light)").matches) {
+        document.head.querySelector("meta[name='theme-color']").setAttribute("content", "#efefef");
+    }
+
     seconds_left_group = document.querySelector("#seconds-left-group")
     minutes_left_group = document.querySelector("#minutes-left-group")
     hours_left_group = document.querySelector("#hours-left-group")
@@ -36,6 +41,12 @@ function setup() {
 }
 
 function tick() {
+    const DIVISIONS = 86400;
+
+    const arcUnitSeconds = parseInt(DIVISIONS / 60);
+    const arcUnitMinutes = parseInt(DIVISIONS / 60 / 60);
+    const arcUnitHours = parseInt(DIVISIONS / 60 / 60 / 24);
+
     let date = new Date()
 
     let hours = date.getHours()
@@ -43,13 +54,13 @@ function tick() {
     let seconds = date.getSeconds()
 
     // Set Seconds Left
-    seconds_left_group.style.setProperty("--time-elapsed", seconds * 1440)
+    seconds_left_group.style.setProperty("--time-elapsed", seconds * arcUnitSeconds)
 
     // Set Minutes Left
-    minutes_left_group.style.setProperty("--time-elapsed", (seconds + minutes*60) * 24)
+    minutes_left_group.style.setProperty("--time-elapsed", (seconds + minutes*60) * arcUnitMinutes)
 
     // Set Hours Left
-    hours_left_group.style.setProperty("--time-elapsed", seconds + minutes*60 + hours*3600)
+    hours_left_group.style.setProperty("--time-elapsed", (seconds + minutes*60 + hours*3600) * arcUnitHours);
 
     // Text - Time Left
     let hours_left = 24 - date.getHours() - 1

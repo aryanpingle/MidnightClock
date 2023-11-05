@@ -1,0 +1,114 @@
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+dialog {
+    height: 100%;
+    width: 100%;
+    border: none;
+    background-color: transparent;
+    padding: 0;
+
+    font-size: 1.5rem;
+
+    color: white;
+}
+
+dialog::backdrop {
+    background-color: rgba(0, 0, 0, 0.75);
+}
+
+.select-time__wrapper {
+    height: 100%;
+    width: 100%;
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.select-time__container {
+    padding: 1em;
+    border-radius: 1em;
+    background-color: #121212;
+    width: auto;
+    
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+}
+
+.input-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1em;
+}
+
+.number-changer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.number-changer > button {
+    color: inherit;
+    font-size: 1em;
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.05);
+    border: none;
+    border-radius: 10px;
+    outline: none;
+    cursor: pointer;
+}
+
+.number-changer > input {
+    box-sizing: content-box;
+    color: inherit;
+    font-size: 1em;
+    background-color: rgba(255, 255, 255, 0.2);
+    background-color: transparent;
+    text-align: center;
+    width: 3ch;
+    padding: 0.25em 0.5em;
+    border: 2px solid transparent;
+    outline: none;
+
+    transition: border-color 100ms ease;
+    border-radius: 10px;
+}
+
+.number-changer > input:focus {
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+.select-time__submit {
+    all: unset;
+    box-sizing: border-box;
+    
+    width: 100%;
+    font-size: inherit;
+    text-transform: uppercase;
+    text-align: center;
+    color: #cdcdcd;
+
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 5px;
+    padding: 0.25em 0.5em;
+    cursor: pointer;
+
+    transition: background-color 100ms ease;
+}
+
+.select-time__submit:focus {
+    background-color: rgba(255, 255, 255, 0.2);
+}

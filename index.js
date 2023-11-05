@@ -42,6 +42,9 @@ class DateRepresentation {
         }
     }
 
+    /**
+     * @param {Date} date 
+     */
     constructorFromDate(date) {
         this.secondsOTD = date.getSeconds();
         this.minutesOTD = date.getMinutes();
@@ -115,9 +118,9 @@ function setup() {
         targetDateRepr = new DateRepresentation(hours * 1_00_00 + minutes * 1_00, true);
         setLS("TARGET_TIME", targetDateRepr.dateMask);
     }
-    document.querySelector(".target-time-text").onclick = event => {
-        targetTimeInput.showPicker();
-    };
+
+    // Setup the select-time dialog
+    setupSelectTimeDialog();
 
     seconds_left_group = document.querySelector("#seconds-left-group")
     minutes_left_group = document.querySelector("#minutes-left-group")
@@ -139,6 +142,56 @@ function setup() {
         // Set arc widths
         countdown_element.style.setProperty("--stroke-width", countdown_arc_width)
     })
+}
+
+function leftPadZeroes(value, length) {
+    return `${new Array(Math.max(0, (value + "").length - length)).fill("0").join("")}${value}`
+}
+
+function setupSelectTimeDialog() {
+    document.querySelectorAll(".target-time-indicator")[1].onclick = event => {
+        document.querySelector("dialog").showModal();
+    };
+
+    // Increment buttons
+    [...document.querySelectorAll(".button--increment")].forEach(button => {
+        button.onclick = function(event) {
+            const input = this.nextElementSibling;
+            input.value = parseInt(input.value) + 1;
+            input.dispatchEvent(new Event('change'));
+        }
+    });
+
+    // Decrement buttons
+    [...document.querySelectorAll(".button--decrement")].forEach(button => {
+        button.onclick = function(event) {
+            const input = this.previousElementSibling;
+            input.value = parseInt(input.value) - 1;
+            input.dispatchEvent(new Event('change'));
+        }
+    });
+    
+    [...document.querySelectorAll(".select-time__input")].forEach(input => {
+        input.onchange = function(event) {
+            let newValue = parseInt(this.value);
+            // constrain
+            newValue = Math.min(parseInt(this.getAttribute("max")), newValue);
+            newValue = Math.max(parseInt(this.getAttribute("min")), newValue);
+
+            this.value = leftPadZero(newValue, 2);
+        }
+    });
+
+    document.querySelector(".select-time__submit").onclick = event => {
+        const selectedHour = document.querySelector("#input-hour").value;
+        const selectedMinute = document.querySelector("#input-minute").value;
+    
+        const targetTimeInput = document.querySelector(".target-time-input");
+        targetTimeInput.value = `${selectedHour}:${selectedMinute}`;
+        targetTimeInput.dispatchEvent(new Event('change'));
+
+        document.querySelector("dialog").close();
+    }
 }
 
 let targetDateRepr = new DateRepresentation(0, true); // Midnight by default

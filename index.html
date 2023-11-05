@@ -13,7 +13,7 @@
     <link rel="shortcut icon" href="images/favicon.png" type="image/PNG">
     <meta name="theme-color" content="#000000">
     <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
-
+    
     <!-- Open Graph Tags -->
     <meta name="author" content="Aryan Pingle" />
     <meta name="description" content="A beautiful, minimalist clock that counts down to midnight" />
@@ -26,16 +26,23 @@
     <meta name="og:image:width" content="720">
     <meta name="og:image:height" content="720">
     <meta name="og:image:type" content="image/png">
-
+    
     <!-- CSS -->
     <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="select-time.css">
     <link rel="stylesheet" href="countdown-clock.css">
-
+    
     <!-- PWA -->
     <link rel="manifest" href="manifest.json">
-
+    
     <!-- JS -->
     <script src="index.js" defer></script>
+
+    <script>
+        function leftPadZeros(element) {
+            console.log(element.value)
+        }
+    </script>
 </head>
 <body>
     <div id="page">
@@ -56,7 +63,7 @@
                 </g>
             </svg>
             <div class="target-time-indicator">
-                <input style="opacity: 0;" type="time" name="" id="" class="target-time-input">
+                <input style="opacity: 0;" type="time" name="" id="" class="target-time-input" tabindex="-1">
             </div>
             <div class="target-time-indicator">
                 <span style="text-align: center; display: inline-block;" class="target-time-text">default</span>
@@ -66,5 +73,26 @@
             <div id="time-as-text"></div>
         </aside>
     </div>
+    
+    <dialog class="dialog-select-time">
+        <div class="select-time__wrapper">
+            <div class="select-time__container">
+                <div class="input-section">
+                    <div class="number-changer">
+                        <button tabindex="-1" class="button--increment">&#9652;</button>
+                        <input type="number" class="select-time__input" id="input-hour" name="input-hour" min="0" max="23" value="00" />
+                        <button tabindex="-1" class="button--decrement">&#9662;</button>
+                    </div>
+                    <span>:</span>
+                    <div class="number-changer">
+                        <button tabindex="-1" class="button--increment">&#9652;</button>
+                        <input type="number" class="select-time__input" id="input-minute" name="input-minute" min="0" max="59" value="00" />
+                        <button tabindex="-1" class="button--decrement">&#9662;</button>
+                    </div>
+                </div>
+                <button class="select-time__submit">Confirm</button>
+            </div>
+        </div>
+    </dialog>
 </body>
 </html>

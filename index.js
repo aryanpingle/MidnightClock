@@ -112,11 +112,14 @@ function setup() {
         targetDateRepr = new DateRepresentation(dateMask, true);
         targetTimeInput.value = `${leftPadZero(targetDateRepr.hoursOTD, 2)}:${leftPadZero(targetDateRepr.minutesOTD, 2)}`;
     }
+
+    setWindowTitle();
     targetTimeInput.onchange = event => {
         const hours = parseInt(targetTimeInput.value.substring(0, 2));
         const minutes = parseInt(targetTimeInput.value.substring(3, 5));
         targetDateRepr = new DateRepresentation(hours * 1_00_00 + minutes * 1_00, true);
         setLS("TARGET_TIME", targetDateRepr.dateMask);
+        setWindowTitle();
     }
 
     // Setup the select-time dialog
@@ -142,6 +145,10 @@ function setup() {
         // Set arc widths
         countdown_element.style.setProperty("--stroke-width", countdown_arc_width)
     })
+}
+
+function setWindowTitle() {
+    document.title = `Countdown to ${getPrettyTimeText(targetDateRepr)}`
 }
 
 function leftPadZeroes(value, length) {
@@ -230,10 +237,18 @@ function tick() {
     ${getTimeSubdivision(seconds_left, "seconds", hours_left || minutes_left)}
     `
 
-    let hoursNumber = targetDateRepr.hoursOTD || 12;
+    document.querySelector(".target-time-text").innerHTML = `till<br>` + getPrettyTimeText(targetDateRepr);
+}
+
+/**
+ * @param {DateRepresentation} dateRepr 
+ * @returns {string}
+ */
+function getPrettyTimeText(dateRepr) {
+    let hoursNumber = dateRepr.hoursOTD || 12;
     hoursNumber = hoursNumber <= 12 ? hoursNumber : (hoursNumber - 12);
-    let targetTimeText = `${hoursNumber}:${leftPadZero(targetDateRepr.minutesOTD, 2)} ${targetDateRepr.hoursOTD < 12 ? "AM" : "PM"}`;
-    document.querySelector(".target-time-text").innerHTML = `till<br>` + (targetDateRepr.isMidnight() ? "midnight" :  targetTimeText);
+    let targetTimeText = `${hoursNumber}:${leftPadZero(dateRepr.minutesOTD, 2)} ${dateRepr.hoursOTD < 12 ? "AM" : "PM"}`;
+    return dateRepr.isMidnight() ? "midnight" :  targetTimeText;
 }
 
 function getTimeSubdivision(number, text, force_enable=false) {

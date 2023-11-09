@@ -156,6 +156,11 @@ function leftPadZeroes(value, length) {
 }
 
 function setupSelectTimeDialog() {
+    // Set initial time on the dialog inputs
+    document.querySelector("#input-hour").value = leftPadZero(targetDateRepr.hoursOTD, 2);
+    document.querySelector("#input-minute").value = leftPadZero(targetDateRepr.minutesOTD, 2);
+
+    // Setup dialog opening / closing
     document.querySelectorAll(".target-time-indicator")[1].onclick = event => {
         document.querySelector("dialog").showModal();
     };
@@ -178,6 +183,7 @@ function setupSelectTimeDialog() {
         }
     });
     
+    // Sanitize the dialog inputs
     [...document.querySelectorAll(".select-time__input")].forEach(input => {
         input.onchange = function(event) {
             let newValue = parseInt(this.value);
@@ -189,6 +195,7 @@ function setupSelectTimeDialog() {
         }
     });
 
+    // Setup the confirm button
     document.querySelector(".select-time__submit").onclick = event => {
         const selectedHour = document.querySelector("#input-hour").value;
         const selectedMinute = document.querySelector("#input-minute").value;

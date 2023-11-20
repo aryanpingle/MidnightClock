@@ -160,6 +160,16 @@ function setupSelectTimeDialog() {
     document.querySelector("#input-hour").value = leftPadZero(targetDateRepr.hoursOTD, 2);
     document.querySelector("#input-minute").value = leftPadZero(targetDateRepr.minutesOTD, 2);
 
+    // Prevent clicks from leaking out of the actual modal content
+    document.querySelector(".select-time__container").onclick = event => {
+        event.stopImmediatePropagation();
+        event.preventDefault();
+    }
+    // If clicked on the dialog (i.e. not inside the content), exit
+    document.querySelector("dialog").onclick = event => {
+        document.querySelector("dialog").close();
+    }
+
     // Setup dialog opening / closing
     document.querySelectorAll(".target-time-indicator")[1].onclick = event => {
         document.querySelector("dialog").showModal();

@@ -93,6 +93,7 @@ svg {
     user-select: none;
     color: #dfdfdf;
     font-size: 0.75em;
+    cursor: pointer;
 }
 
 .target-time-input {
